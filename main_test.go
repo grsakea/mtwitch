@@ -29,9 +29,9 @@ func TestLoadAbsentConfig(t *testing.T) {
 type fakeTwitchSession struct {
 }
 
-func (s fakeTwitchSession) GetStream(input *twitch.GetStreamInput) (*twitch.StreamList, error) {
+func (s fakeTwitchSession) GetStream(input twitch.GetStreamInput) (twitch.StreamList, error) {
 	sl := twitch.StreamList{Data: []twitch.Stream{{}}}
-	return &sl, nil
+	return sl, nil
 	//return &sl, errors.New("Hello")
 }
 

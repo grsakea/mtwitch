@@ -46,7 +46,7 @@ func loadConfig(path string) (Config, error) {
 }
 
 func isOnline(name string) (bool, error) {
-	data, err := s.GetStream(&twitch.GetStreamInput{UserLogin: name})
+	data, err := s.GetStream(twitch.GetStreamInput{UserLogin: name})
 	if err != nil {
 		return false, err
 	}
