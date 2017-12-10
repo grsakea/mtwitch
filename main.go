@@ -9,13 +9,14 @@ import (
 	"github.com/grsakea/go-twitch"
 )
 
-var s = twitch.NewSession()
+var s twitch.TwitchInterface
 
 type Config struct {
 	Streamers []string `json:"streamers"`
 }
 
 func main() {
+	s = twitch.NewSession()
 	conf, err := loadConfig("config.json")
 	if err != nil {
 		os.Exit(1)
