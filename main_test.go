@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	twitch "github.com/grsakea/go-twitch"
+)
 
 func TestLoadConfig(t *testing.T) {
 	conf, err := loadConfig("fixtures/config.json")
@@ -20,4 +24,20 @@ func TestLoadAbsentConfig(t *testing.T) {
 	if err == nil {
 		t.Error("Should have been an error")
 	}
+}
+
+type fakeTwitchSession struct {
+}
+
+func (s fakeTwitchSession) GetStream(input *twitch.GetStreamInput) (*twitch.StreamList, error) {
+	sl := twitch.StreamList{Data: []twitch.Stream{{}}}
+	return &sl, nil
+	//return &sl, errors.New("Hello")
+}
+
+func TestIsOnline(t *testing.T) {
+	s = fakeTwitchSession{}
+	out, err := isOnline("twitch")
+	t.Log(out)
+	t.Log(err)
 }
