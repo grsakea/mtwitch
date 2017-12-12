@@ -12,3 +12,6 @@
 
 # config for the program
 config.json
+
+# go build output
+mtwitch
