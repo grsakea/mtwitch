@@ -9,21 +9,19 @@ import (
 	"github.com/grsakea/go-twitch"
 )
 
-var s twitch.TwitchInterface
-
 type Config struct {
 	Streamers []string `json:"streamers"`
 }
 
 func main() {
-	s = twitch.NewSession()
+	s := twitch.NewSession()
 	conf, err := loadConfig("config.json")
 	if err != nil {
 		os.Exit(1)
 	}
 
 	for i := 0; i < len(conf.Streamers); i++ {
-		onl, err := isOnline(conf.Streamers[i])
+		onl, err := isOnline(conf.Streamers[i], s)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(2)
@@ -45,7 +43,7 @@ func loadConfig(path string) (Config, error) {
 	return conf, nil
 }
 
-func isOnline(name string) (bool, error) {
+func isOnline(name string, s twitch.GetStreamer) (bool, error) {
 	data, err := s.GetStream(twitch.GetStreamInput{UserLogin: name})
 	if err != nil {
 		return false, err

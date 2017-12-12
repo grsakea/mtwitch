@@ -26,18 +26,17 @@ func TestLoadAbsentConfig(t *testing.T) {
 	}
 }
 
-type fakeTwitchSession struct {
+type fakeTwitchGetter struct {
 }
 
-func (s fakeTwitchSession) GetStream(input twitch.GetStreamInput) (twitch.StreamList, error) {
+func (s fakeTwitchGetter) GetStream(input twitch.GetStreamInput) (twitch.StreamList, error) {
 	sl := twitch.StreamList{Data: []twitch.Stream{{}}}
 	return sl, nil
-	//return &sl, errors.New("Hello")
 }
 
 func TestIsOnline(t *testing.T) {
-	s = fakeTwitchSession{}
-	out, err := isOnline("twitch")
+	s := fakeTwitchGetter{}
+	out, err := isOnline("twitch", s)
 	t.Log(out)
 	t.Log(err)
 }
