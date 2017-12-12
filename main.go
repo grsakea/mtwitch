@@ -13,7 +13,7 @@ type Config struct {
 }
 
 func main() {
-	s := twitch.NewSession()
+	s := twitch.NewSession(os.Getenv("CLIENT_ID"))
 	conf, err := loadConfig("config.json")
 	if err != nil {
 		os.Exit(1)
