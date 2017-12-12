@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 
@@ -20,14 +19,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	for i := 0; i < len(conf.Streamers); i++ {
-		onl, err := isOnline(conf.Streamers[i], s)
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(2)
-		}
-		fmt.Println(conf.Streamers[i], onl)
-	}
+	followStream(conf.Streamers, s)
+
+	select {}
 }
 
 func loadConfig(path string) (Config, error) {
