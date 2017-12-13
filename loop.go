@@ -18,20 +18,24 @@ func startRecord(channel string, s twitch.Interface) {
 	log.Println("start" + channel)
 	state := false
 	for {
-		new_st, err := isOnline(channel, s)
+		newState, err := isOnline(channel, s)
 		if err != nil {
 			log.Println("error :", err)
-		} else if state != new_st {
-			state = new_st
-			var str string
-			if state {
-				str = "online"
-			} else {
-				str = "offline"
-			}
-			log.Println(channel + " is now : " + str)
+		} else if state != newState {
+			state = newState
+			log.Println(channelStatus(channel, state))
 		}
 
 		time.Sleep(30 * time.Second)
 	}
+}
+
+func channelStatus(channel string, state bool) string {
+	var str string
+	if state {
+		str = "online"
+	} else {
+		str = "offline"
+	}
+	return channel + " is now : " + str
 }
