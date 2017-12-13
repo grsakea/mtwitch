@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"time"
 
 	twitch "github.com/grsakea/go-twitch"
@@ -15,12 +15,12 @@ func followStream(channels []string, s twitch.Interface) {
 }
 
 func startRecord(channel string, s twitch.Interface) {
-	fmt.Println("start" + channel)
+	log.Println("start" + channel)
 	state := false
 	for {
 		new_st, err := isOnline(channel, s)
 		if err != nil {
-			fmt.Println("error :", err)
+			log.Println("error :", err)
 		} else if state != new_st {
 			state = new_st
 			var str string
@@ -29,7 +29,7 @@ func startRecord(channel string, s twitch.Interface) {
 			} else {
 				str = "offline"
 			}
-			fmt.Println(channel + " is now : " + str)
+			log.Println(channel + " is now : " + str)
 		}
 
 		time.Sleep(30 * time.Second)
