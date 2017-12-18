@@ -15,7 +15,7 @@ func followStream(channels []string, s twitch.Interface) {
 }
 
 func startRecord(channel string, s twitch.Interface) {
-	log.Println("start" + channel)
+	log.Println("start", channel)
 	state := false
 	for {
 		newState, err := isOnline(channel, s)
