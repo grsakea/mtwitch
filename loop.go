@@ -5,6 +5,7 @@ import (
 	"time"
 
 	twitch "github.com/grsakea/go-twitch"
+	"github.com/grsakea/hls"
 )
 
 func followStream(channels []string, s twitch.Interface) {
@@ -23,7 +24,10 @@ func startRecord(channel string, s twitch.Interface) {
 			log.Println("error :", err)
 		} else if state != newState {
 			state = newState
-			log.Println(channelStatus(channel, state))
+			if state {
+				a, _ := s.ExtractStreamUrl(channel)
+				hls.Download(a[0].URL, "/var/tmp/"+channel)
+			}
 		}
 
 		time.Sleep(30 * time.Second)
