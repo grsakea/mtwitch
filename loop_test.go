@@ -2,6 +2,7 @@ package main
 
 import (
 	"testing"
+	"time"
 
 	twitch "github.com/grsakea/go-twitch"
 )
@@ -21,7 +22,11 @@ func (s fakeTwitchFollowStream) ExtractStreamUrl(name string) ([]twitch.HLSStrea
 	return nil, nil
 }
 
+func fakeSleep(time.Duration) {
+}
+
 func TestFollowStream(t *testing.T) {
+	sleepFunc = fakeSleep
 	followStream([]string{"test_stream"}, fakeTwitchFollowStream{})
 }
 
@@ -41,4 +46,8 @@ func TestChannelStatus(t *testing.T) {
 			t.Fatal("expected :\n", i.out, " got :\n", out)
 		}
 	}
+}
+
+func TestStreamFilename(t *testing.T) {
+
 }

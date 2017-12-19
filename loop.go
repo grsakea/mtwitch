@@ -9,10 +9,12 @@ import (
 	"github.com/grsakea/hls"
 )
 
+var sleepFunc = time.Sleep
+
 func followStream(channels []string, s twitch.Interface) {
 	for _, channel := range channels {
 		go startRecord(channel, s)
-		time.Sleep(3 * time.Second)
+		sleepFunc(3 * time.Second)
 	}
 }
 
