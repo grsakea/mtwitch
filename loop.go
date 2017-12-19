@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"regexp"
 	"time"
 
 	twitch "github.com/grsakea/go-twitch"
@@ -25,28 +24,12 @@ func startRecord(channel string, s twitch.Interface) {
 		if err != nil {
 			log.Println("error :", err)
 		} else if state {
-			recordStream(channel, s)
+			recordStream(channel, s, hls.HLSDownloader{})
 			log.Println("Stopping recording of", channel)
 		}
 
-		time.Sleep(30 * time.Second)
+		sleepFunc(30 * time.Second)
 	}
-}
-
-func recordStream(channel string, s twitch.Interface) {
-	log.Println("Starting recording of", channel)
-	st, _ := s.GetStream(twitch.GetStreamInput{UserLogin: channel})
-	stURL, _ := s.ExtractStreamUrl(channel)
-	filename := streamFilename(st.Data[0], time.Now())
-	hls.Download(stURL[0].URL, filename)
-}
-
-func streamFilename(s twitch.Stream, t time.Time) string {
-	outTime := t.Format("06-01-02_15:04")
-	re := regexp.MustCompile(`[ \|\!|@]+`)
-	outChan := re.ReplaceAllString(s.Title, "_")
-
-	return outTime + "-" + outChan + ".mp4"
 }
 
 func channelStatus(channel string, state bool) string {
