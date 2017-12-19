@@ -42,12 +42,22 @@ func TestIsOnlineFail(t *testing.T) {
 func TestStreamFilename(t *testing.T) {
 	s := twitch.Stream{Title: "@fake_stream!|"}
 	tim, _ := time.Parse(time.RFC3339, "2017-01-01T15:04:05Z")
+
 	out := streamFilename(s, tim)
 	if out != "17-01-01_15:04-_fake_stream_.mp4" {
 		t.Fail()
 	}
 }
 
-func TestRecordStream(t *testing.T) {
+type fakeDownloader struct {
+}
 
+func (d fakeDownloader) Download(playlistURL string, target string) {
+}
+
+func TestRecordStream(t *testing.T) {
+	tw := fakeTwitchFollowStream{t}
+	d := fakeDownloader{}
+
+	recordStream("test_stream", tw, d)
 }

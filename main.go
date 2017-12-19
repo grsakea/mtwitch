@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/grsakea/go-twitch"
+	"github.com/grsakea/hls"
 )
 
 type Config struct {
@@ -18,7 +19,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	followStream(conf.Streamers, s)
+	followStream(conf.Streamers, s, hls.HLSDownloader{})
 
 	select {}
 }

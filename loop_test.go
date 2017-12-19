@@ -15,11 +15,11 @@ func (s fakeTwitchFollowStream) GetStream(input twitch.GetStreamInput) (twitch.S
 	if input.UserLogin != "test_stream" {
 		s.t.Fail()
 	}
-	return twitch.StreamList{}, nil
+	return twitch.StreamList{[]twitch.Stream{{Title: "test"}}}, nil
 }
 
 func (s fakeTwitchFollowStream) ExtractStreamUrl(name string) ([]twitch.HLSStream, error) {
-	return nil, nil
+	return []twitch.HLSStream{{URL: "localhost"}}, nil
 }
 
 func fakeSleep(time.Duration) {
@@ -27,7 +27,7 @@ func fakeSleep(time.Duration) {
 
 func TestFollowStream(t *testing.T) {
 	sleepFunc = fakeSleep
-	followStream([]string{"test_stream"}, fakeTwitchFollowStream{})
+	followStream([]string{"test_stream"}, fakeTwitchFollowStream{}, fakeDownloader{})
 }
 
 func TestChannelStatus(t *testing.T) {
@@ -46,9 +46,4 @@ func TestChannelStatus(t *testing.T) {
 			t.Fatal("expected :\n", i.out, " got :\n", out)
 		}
 	}
-}
-
-func TestStartRecord(t *testing.T) {
-	sleepFunc = fakeSleep
-	go startRecord("test_stream", fakeTwitchFollowStream{})
 }

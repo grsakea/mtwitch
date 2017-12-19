@@ -10,21 +10,21 @@ import (
 
 var sleepFunc = time.Sleep
 
-func followStream(channels []string, s twitch.Interface) {
+func followStream(channels []string, s twitch.Interface, d hls.Downloader) {
 	for _, channel := range channels {
-		go startRecord(channel, s)
+		go startRecord(channel, s, d)
 		sleepFunc(3 * time.Second)
 	}
 }
 
-func startRecord(channel string, s twitch.Interface) {
+func startRecord(channel string, s twitch.Interface, d hls.Downloader) {
 	log.Println("start", channel)
 	for {
 		state, err := isOnline(channel, s)
 		if err != nil {
 			log.Println("error :", err)
 		} else if state {
-			recordStream(channel, s, hls.HLSDownloader{})
+			recordStream(channel, s, d)
 			log.Println("Stopping recording of", channel)
 		}
 
