@@ -37,13 +37,11 @@ func recordStream(channel string, s twitch.Interface) {
 	log.Println("Starting recording of", channel)
 	st, _ := s.GetStream(twitch.GetStreamInput{UserLogin: channel})
 	stURL, _ := s.ExtractStreamUrl(channel)
-	filename := streamFilename(st.Data[0])
+	filename := streamFilename(st.Data[0], time.Now())
 	hls.Download(stURL[0].URL, filename)
 }
 
-func streamFilename(s twitch.Stream) string {
-	t := time.Now()
-
+func streamFilename(s twitch.Stream, t time.Time) string {
 	outTime := t.Format("06-01-02_15:04")
 	re := regexp.MustCompile(`[ \|\!|@]+`)
 	outChan := re.ReplaceAllString(s.Title, "_")
