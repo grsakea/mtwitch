@@ -1,10 +1,7 @@
 package main
 
 import (
-	"errors"
 	"testing"
-
-	twitch "github.com/grsakea/go-twitch"
 )
 
 func TestLoadConfig(t *testing.T) {
@@ -24,18 +21,6 @@ func TestLoadAbsentConfig(t *testing.T) {
 	_, err := loadConfig("fixtures/invalid_config.json")
 	if err == nil {
 		t.Error("Should have been an error")
-	}
-}
-
-type fakeTwitch struct {
-}
-
-func (s fakeTwitch) GetStream(input twitch.GetStreamInput) (twitch.StreamList, error) {
-	if input.UserLogin == "twitch" {
-		sl := twitch.StreamList{Data: []twitch.Stream{{}}}
-		return sl, nil
-	} else {
-		return twitch.StreamList{}, errors.New("test")
 	}
 }
 
