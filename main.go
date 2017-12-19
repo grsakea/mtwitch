@@ -13,8 +13,7 @@ type Config struct {
 }
 
 func main() {
-	s := twitch.NewSession(os.Getenv("CLIENT_ID"))
-	conf, err := loadConfig("config.json")
+	s, conf, err := initApp(os.Getenv("CLIENT_ID"), "config.json")
 	if err != nil {
 		os.Exit(1)
 	}
@@ -22,6 +21,12 @@ func main() {
 	followStream(conf.Streamers, s)
 
 	select {}
+}
+
+func initApp(cID, confPath string) (twitch.Session, Config, error) {
+	s := twitch.NewSession(cID)
+	conf, err := loadConfig(confPath)
+	return s, conf, err
 }
 
 func loadConfig(path string) (Config, error) {

@@ -57,3 +57,13 @@ func TestIsOnlineFail(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestInitApp(t *testing.T) {
+	fakeCID := "TEST"
+	fakeConf := "fixtures/config.json"
+
+	_, _, err := initApp(fakeCID, fakeConf)
+	if err != nil {
+		t.Fail()
+	}
+}
