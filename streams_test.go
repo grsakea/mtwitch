@@ -44,8 +44,9 @@ func TestStreamFilename(t *testing.T) {
 	tim, _ := time.Parse(time.RFC3339, "2017-01-01T15:04:05Z")
 
 	out := streamFilename(s, tim)
-	if out != "17-01-01_15:04-_fake_stream_.mp4" {
-		t.Fail()
+	expected := "17-01-01_15:04-_fake_stream_.mp4"
+	if out != expected {
+		t.Fatal(out, expected)
 	}
 }
 
