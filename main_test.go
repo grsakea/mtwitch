@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"testing"
 
 	twitch "github.com/grsakea/go-twitch"
@@ -30,8 +31,12 @@ type fakeTwitch struct {
 }
 
 func (s fakeTwitch) GetStream(input twitch.GetStreamInput) (twitch.StreamList, error) {
-	sl := twitch.StreamList{Data: []twitch.Stream{{}}}
-	return sl, nil
+	if input.UserLogin == "twitch" {
+		sl := twitch.StreamList{Data: []twitch.Stream{{}}}
+		return sl, nil
+	} else {
+		return twitch.StreamList{}, errors.New("test")
+	}
 }
 
 func TestIsOnline(t *testing.T) {
@@ -41,6 +46,14 @@ func TestIsOnline(t *testing.T) {
 		t.Fail()
 	}
 	if !out {
+		t.Fail()
+	}
+}
+
+func TestIsOnlineFail(t *testing.T) {
+	s := fakeTwitch{}
+	_, err := isOnline("not_twitch", s)
+	if err == nil {
 		t.Fail()
 	}
 }
