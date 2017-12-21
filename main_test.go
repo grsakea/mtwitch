@@ -17,6 +17,13 @@ func TestLoadConfig(t *testing.T) {
 	}
 }
 
+func TestLoadBadConfig(t *testing.T) {
+	_, err := loadConfig("main.go")
+	if err == nil {
+		t.Error("Should have been an error")
+	}
+}
+
 func TestLoadAbsentConfig(t *testing.T) {
 	_, err := loadConfig("fixtures/invalid_config.json")
 	if err == nil {
