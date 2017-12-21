@@ -6,6 +6,7 @@ import (
 	"time"
 
 	twitch "github.com/grsakea/go-twitch"
+	"github.com/stretchr/testify/assert"
 )
 
 type fakeTwitchGetter struct {
@@ -44,10 +45,8 @@ func TestStreamFilename(t *testing.T) {
 	tim, _ := time.Parse(time.RFC3339, "2017-01-01T15:04:05Z")
 
 	out := streamFilename(s, tim)
-	expected := "17-01-01_15:04-_fake_stream_.mp4"
-	if out != expected {
-		t.Fatal(out, expected)
-	}
+	expected := "17-01-01-15:04-_fake_stream_.mp4"
+	assert.Equal(t, out, expected)
 }
 
 type fakeDownloader struct {

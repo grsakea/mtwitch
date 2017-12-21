@@ -26,7 +26,7 @@ func recordStream(channel string, s twitch.Interface, d hls.Downloader) {
 }
 
 func streamFilename(s twitch.Stream, t time.Time) string {
-	outTime := t.Format("06-01-02_15:04")
+	outTime := t.Format("06-01-02-15:04")
 	re := regexp.MustCompile(`[ \|\!|@]+`)
 	outChan := re.ReplaceAllString(s.Title, "_")
 
