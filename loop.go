@@ -20,16 +20,20 @@ func followStream(channels []string, s twitch.Interface, d hls.Downloader) {
 func startRecord(channel string, s twitch.Interface, d hls.Downloader) {
 	log.Println("start", channel)
 	for {
-		state, err := isOnline(channel, s)
-		if err != nil {
-			log.Println("error :", err)
-		} else if state {
-			recordStream(channel, s, d)
-			log.Println("Stopping recording of", channel)
-		}
-
+		loopStreamRecord(channel, s, d)
 		sleepFunc(30 * time.Second)
 	}
+}
+
+func loopStreamRecord(channel string, s twitch.Interface, d hls.Downloader) {
+	state, err := isOnline(channel, s)
+	if err != nil {
+		log.Println("error :", err)
+	} else if state {
+		recordStream(channel, s, d)
+		log.Println("Stopping recording of", channel)
+	}
+
 }
 
 func channelStatus(channel string, state bool) string {
