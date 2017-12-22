@@ -1,7 +1,8 @@
 # mtwitch
 
 [![Build Status](https://travis-ci.org/grsakea/mtwitch.svg?branch=master)](https://travis-ci.org/grsakea/mtwitch)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/02240f74eaf070aaaaa9/test_coverage)](https://codeclimate.com/github/grsakea/mtwitch/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/02240f74eaf070aaaaa9/maintainability)](https://codeclimate.com/github/grsakea/mtwitch/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/grsakea/mtwitch/badge.svg?branch=master)](https://coveralls.io/github/grsakea/mtwitch?branch=master)
+[![GoDoc](https://godoc.org/github.com/grsakea/mtwitch?status.svg)](https://godoc.org/github.com/grsakea/mtwitch)
+
 
 Application for recording twitch streams
