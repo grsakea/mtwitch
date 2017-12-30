@@ -11,6 +11,7 @@ import (
 
 type Config struct {
 	Streamers []string `json:"streamers"`
+	Location  string   `json:"location"`
 }
 
 func main() {
@@ -27,6 +28,10 @@ func main() {
 func initApp(cID, confPath string) (twitch.Session, Config, error) {
 	s := twitch.NewSession(cID)
 	conf, err := loadConfig(confPath)
+	if err != nil {
+		return twitch.Session{}, Config{}, err
+	}
+	err = os.MkdirAll(conf.Location, os.ModeDir)
 	return s, conf, err
 }
 

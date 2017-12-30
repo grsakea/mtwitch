@@ -1,5 +1,6 @@
 { "streamers":
     [
         "twitch"
-    ]
+    ],
+    "location": "."
 }
