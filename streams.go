@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"path"
 	"regexp"
 	"time"
 
@@ -22,7 +23,7 @@ func recordStream(channel string, s twitch.Interface, d hls.Downloader) {
 	st, _ := s.GetStream(twitch.GetStreamInput{UserLogin: channel})
 	stURL, _ := s.ExtractStreamUrl(channel)
 	filename := streamFilename(st.Data[0], time.Now())
-	d.Download(stURL[0].URL, filename)
+	d.Download(stURL[0].URL, path.Join(channel, filename))
 }
 
 func streamFilename(s twitch.Stream, t time.Time) string {
