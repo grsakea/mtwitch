@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 	"path"
 	"regexp"
 	"time"
@@ -18,12 +19,14 @@ func isOnline(name string, s twitch.GetStreamer) (bool, error) {
 	return len(data.Data) == 1, nil
 }
 
-func recordStream(channel string, s twitch.Interface, d hls.Downloader) {
+func recordStream(channel string, conf Config, s twitch.Interface, d hls.Downloader) {
 	log.Println("Starting recording of", channel)
+	os.MkdirAll(path.Join(conf.Location, channel), 0775)
 	st, _ := s.GetStream(twitch.GetStreamInput{UserLogin: channel})
 	stURL, _ := s.ExtractStreamUrl(channel)
 	filename := streamFilename(st.Data[0], time.Now())
-	d.Download(stURL[0].URL, path.Join(channel, filename))
+	log.Println(path.Join(conf.Location, channel, filename))
+	d.Download(stURL[0].URL, path.Join(conf.Location, channel, filename))
 }
 
 func streamFilename(s twitch.Stream, t time.Time) string {

@@ -12,25 +12,25 @@ var sleepFunc = time.Sleep
 
 func followStream(conf Config, s twitch.Interface, d hls.Downloader) {
 	for _, channel := range conf.Streamers {
-		go startRecord(channel, s, d)
+		go startRecord(channel, conf, s, d)
 		sleepFunc(3 * time.Second)
 	}
 }
 
-func startRecord(channel string, s twitch.Interface, d hls.Downloader) {
+func startRecord(channel string, conf Config, s twitch.Interface, d hls.Downloader) {
 	log.Println("start", channel)
 	for {
-		loopStreamRecord(channel, s, d)
+		loopStreamRecord(channel, conf, s, d)
 		sleepFunc(30 * time.Second)
 	}
 }
 
-func loopStreamRecord(channel string, s twitch.Interface, d hls.Downloader) {
+func loopStreamRecord(channel string, conf Config, s twitch.Interface, d hls.Downloader) {
 	state, err := isOnline(channel, s)
 	if err != nil {
 		log.Println("error :", err)
 	} else if state {
-		recordStream(channel, s, d)
+		recordStream(channel, conf, s, d)
 		log.Println("Stopping recording of", channel)
 	}
 

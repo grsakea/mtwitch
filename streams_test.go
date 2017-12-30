@@ -59,5 +59,5 @@ func TestRecordStream(t *testing.T) {
 	tw := fakeTwitchFollowStream{t}
 	d := fakeDownloader{}
 
-	recordStream("test_stream", tw, d)
+	recordStream("test_stream", Config{}, tw, d)
 }

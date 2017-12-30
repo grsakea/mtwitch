@@ -49,5 +49,5 @@ func TestChannelStatus(t *testing.T) {
 }
 
 func TestLoopStreamRecord(t *testing.T) {
-	loopStreamRecord("test_stream", fakeTwitchFollowStream{t}, fakeDownloader{})
+	loopStreamRecord("test_stream", Config{}, fakeTwitchFollowStream{t}, fakeDownloader{})
 }
