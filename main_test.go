@@ -40,3 +40,13 @@ func TestInitApp(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestInitAppFail(t *testing.T) {
+	fakeCID := "TEST"
+	fakeConf := "badfile"
+
+	_, _, err := initApp(fakeCID, fakeConf)
+	if err == nil {
+		t.Fail()
+	}
+}
