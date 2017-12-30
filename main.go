@@ -31,7 +31,7 @@ func initApp(cID, confPath string) (twitch.Session, Config, error) {
 	if err != nil {
 		return twitch.Session{}, Config{}, err
 	}
-	err = os.MkdirAll(conf.Location, os.ModeDir)
+	err = os.MkdirAll(conf.Location, 0775)
 	return s, conf, err
 }
 
