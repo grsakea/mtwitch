@@ -15,7 +15,7 @@ func (s fakeTwitchFollowStream) GetStream(input twitch.GetStreamInput) (twitch.S
 	if input.UserLogin != "test_stream" {
 		s.t.Fail()
 	}
-	return twitch.StreamList{[]twitch.Stream{{Title: "test"}}}, nil
+	return twitch.StreamList{Data: []twitch.Stream{{Title: "test"}}}, nil
 }
 
 func (s fakeTwitchFollowStream) ExtractStreamUrl(name string) ([]twitch.HLSStream, error) {
