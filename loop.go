@@ -10,8 +10,8 @@ import (
 
 var sleepFunc = time.Sleep
 
-func followStream(channels []string, s twitch.Interface, d hls.Downloader) {
-	for _, channel := range channels {
+func followStream(conf Config, s twitch.Interface, d hls.Downloader) {
+	for _, channel := range conf.Streamers {
 		go startRecord(channel, s, d)
 		sleepFunc(3 * time.Second)
 	}

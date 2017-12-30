@@ -27,7 +27,7 @@ func fakeSleep(time.Duration) {
 
 func TestFollowStream(t *testing.T) {
 	sleepFunc = fakeSleep
-	followStream([]string{"test_stream"}, fakeTwitchFollowStream{}, fakeDownloader{})
+	followStream(Config{Streamers: []string{"test_stream"}}, fakeTwitchFollowStream{}, fakeDownloader{})
 }
 
 func TestChannelStatus(t *testing.T) {

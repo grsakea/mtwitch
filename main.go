@@ -19,7 +19,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	followStream(conf.Streamers, s, hls.HLSDownloader{})
+	followStream(conf, s, hls.HLSDownloader{})
 
 	select {}
 }
