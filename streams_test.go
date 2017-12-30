@@ -16,9 +16,8 @@ func (s fakeTwitchGetter) GetStream(input twitch.GetStreamInput) (twitch.StreamL
 	if input.UserLogin == "twitch" {
 		sl := twitch.StreamList{Data: []twitch.Stream{{}}}
 		return sl, nil
-	} else {
-		return twitch.StreamList{}, errors.New("test")
 	}
+	return twitch.StreamList{}, errors.New("test")
 }
 
 func TestIsOnline(t *testing.T) {

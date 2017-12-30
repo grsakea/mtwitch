@@ -9,6 +9,7 @@ import (
 	"github.com/grsakea/hls"
 )
 
+// Config is the data for program config
 type Config struct {
 	Streamers []string `json:"streamers"`
 	Location  string   `json:"location"`
