@@ -31,7 +31,7 @@ func recordStream(channel string, conf Config, s twitch.Interface, d hls.Downloa
 
 func streamFilename(s twitch.Stream, t time.Time) string {
 	outTime := t.Format("06-01-02-15:04")
-	re := regexp.MustCompile(`[\/ \|\!|@]+`)
+	re := regexp.MustCompile(`[\.'\/ \|\!|@]+`)
 	outChan := re.ReplaceAllString(s.Title, "_")
 
 	return outTime + "-" + outChan + ".mp4"
