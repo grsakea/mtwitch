@@ -30,7 +30,11 @@ func loopStreamRecord(channel string, conf Config, s twitch.Interface, d hls.Dow
 	if err != nil {
 		log.Println("error :", err)
 	} else if state {
-		recordStream(channel, conf, s, d)
+		err := recordStream(channel, conf, s, d)
+		if err != nil {
+			log.Println("Error during recording :", err)
+			return
+		}
 		log.Println("Stopping recording of", channel)
 	}
 
